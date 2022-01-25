@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./YouTube-favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>YouTube Clone</title>
+
+    <script src="https://kit.fontawesome.com/330d903f09.js" crossorigin="anonymous"></script>
+</head>
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    position: relative;
+    background: #f0f0f0;
+    font-family: 'roboto', sans-serif;
+} 
+
+
+.navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 2.5vw;
+}
+
+.toggle-btn{
+    width: 20px;
+    height: 10px;
+    cursor: pointer;
+    position: relative;
+}
+.toggle-btn span{
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #979797;
+}
+.toggle-btn span:nth-child(1){
+    top: 0;
+}
+
+.toggle-btn span:nth-child(3){
+    top: 100%;
+}
+
+.logo{
+    height: 30px;
+    margin: -10px 30px 0;
+}
+
+.search-box{
+    position: relative;
+    max-width: 533px;
+    width: 50%;
+    margin-left: 106px;
+    height: 40px;
+    display: flex;
+}
+.search-bar{
+    width: 80%;
+    height: 100%;
+    border: 2px solid #dbdbdb;
+    padding: 0 2px;
+    font-size: 16px;
+    text-transform:  capitalize;
+    
+}
+.search-btn{
+    width: 15%;
+    height: 100%;
+    background: #f0f0f0;
+    border: 2px solid #dbdbdb;
+    padding: 5px 0;
+    border-left: none;
+    cursor: pointer;
+}
+
+
+.search-btn img{
+    height: 100%;
+}
+.microphone i{ 
+    cursor: pointer;
+    font-size: 22px;
+    margin-bottom: 7px;
+}
+.user-options{
+    height: 35px;
+    display: flex;
+    margin-left: auto ;
+    align-items: center;
+}
+.user-options .icon{
+    height: 80%;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.user-dp{
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user-dp img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.side-bar{
+    position: fixed;
+    top: 60px;
+    left: 0;
+    min-width: 250px;
+    width: 250px;
+    height: calc(100vh - 60px);
+    padding-right: 10px;
+    background: #ffffff;
+}
+
+.links i{
+    color: black;
+    height: 25px;
+    margin-right: 20px;
+}
+.active i{
+    color: #ff0000;
+}
+
+.links{
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    color: #242424;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.links:hover, .links.active{
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.seperator{
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+
+
+
+.filters{
+    position: fixed;
+    left: 250px;
+    top: 60px;
+    width: calc(100% - 250px);
+    height: 60px;
+    background: #fff;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y:hidden ;
+}
+.filters::-webkit-scrollbar{
+    display: none;
+}
+
+.filter-options{
+    flex: 0 0 auto;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: #f0f0f0;
+    border: 1px solid #dbdbdb;
+    text-transform: capitalize;
+    margin-right: 10px;
+    color: #242424;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.filter-options.active{
+    color: #fff;
+    background: #242424;
+}
+
+
+
+
+.video-container{
+    width: calc(100% - 250px);
+    margin-top: 120px;
+    margin-left: 250px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-gap: 20px 5px;
+    overflow-x: hidden;
+}
+
+.video{
+    min-height: 250px;
+    height: auto;
+}
+
+.thumbnail{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.content{
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.channel-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.title{
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.channel-name{
+    font-size: 14px;
+    margin: 2px 0;
+    color: #979797;
+}
+</style>
+<body>
+    <nav class="navbar">
+        <div class="toggle-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <img src="./YTlogo.png" class="logo" alt="YTimage">
+        <div class="search-box">
+            <input type="text" class="search-bar" placeholder="search">
+            <button class="search-btn"><img src="./search.png" alt="search"></button>
+        </div>
+        <div class="microphone">
+            <i class="fas fa-microphone"></i>
+        </div>
+
+        <div class="user-options">
+            <img src="./video.png" class="icon" alt="">
+            <img src="./grid.png" class="icon" alt="">
+            <img src="./bell.png" class="icon" alt="">
+        </div>
+        <div class="user-dp">
+            <i class="material-icons display-this">account_circle</i>
+        </div>
+    </nav>
+
+   
+    <div class="side-bar">
+        <a href="#" class="links active"><i class="fas fa-home"></i>Home</a>
+        <a href="#" class="links"><i class="fas fa-compass"></i>Explore</a>
+        <a href="#" class="links"><i class="far fa-address-card"></i>Subscription</a>
+        <hr class="seperator">
+        <a href="#" class="links"><i class="fab fa-youtube"></i>Originals</a>
+        <a href="#" class="links"><i class="fas fa-book"></i>History</a>
+        <a href="#" class="links"><i class="far fa-clock"></i>Watch Later</a>
+        <a href="#" class="links"><i class="fas fa-arrow-down"></i>Downloads</a>
+        <a href="#" class="links"><i class="far fa-thumbs-up"></i>Likes</a>
+        <a href="#" class="links"><i class="fas fa-chevron-down"></i>Show More</a>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+        <button class="filter-options active">all</button>
+        <button class="filter-options">javascript</button>
+        <button class="filter-options">web development</button>
+        <button class="filter-options">python</button>
+        <button class="filter-options">entertainment</button>
+        <button class="filter-options">marvel</button>
+        <button class="filter-options">dc</button>
+        <button class="filter-options">css</button>
+        <button class="filter-options">machine learning</button>
+        <button class="filter-options">trending</button>
+    </div>
+
+   
+    <div class="video-container">
+       
+    </div>
+  <script>const api_key = "AIzaSyAjThLmYxlSh_jVkX_uKjcFWjw5pskiPlE";
+
+    const video_http = "https://www.googleapis.com/youtube/v3/videos?";
+    
+    let channel_http = "https://www.googleapis.com/youtube/v3/channels?"
+    
+    const videoCardContainer = document.querySelector('.video-container')
+    
+    fetch(video_http + new URLSearchParams({
+        key: api_key,
+        part: 'snippet',
+        chart: 'mostPopular',
+        maxResults: 62,
+        regionCode: 'IN'
+    })).then(res => res.json())
+    .then(data => {
+        data.items.forEach(item =>{
+            getChannelIcon(item);
+        })
+       
+    }).catch(error => console.log(error))
+    
+    const getChannelIcon = (video_data) =>{
+        fetch(channel_http + new URLSearchParams({
+            key: api_key,
+            part: 'snippet',
+            id: video_data.snippet.channelId
+        })).then(res => res.json())
+        .then( data => {
+            video_data.channelThumbnail = data.items[0].snippet.thumbnails.default.url;
+            makeVideoCard(video_data);
+        })
+    }
+    const makeVideoCard = (data) =>{
+        videoCardContainer.innerHTML += `
+        <div class="video" onclick="location.href = 'https://youtube.com/watch?v=${data.id}'">
+                <img src="${data.snippet.thumbnails.high.url}" class="thumbnail" alt="">
+                <div class="content">
+                    <img src="${data.channelThumbnail}" class="channel-icon" alt="">
+                    <div class="info">
+                        <h4 class="title">${data.snippet.title}</h4>
+                        <p class="channel-name" ${data.snippet.channelTitle}></p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    const searchInput = document.querySelector('.search-bar');
+    
+    const searchBtn = document.querySelector('.search-btn');
+    
+    let searchLink = "https://www.youtube.com/results?search_query=";
+    
+    searchBtn.addEventListener('click',() =>{
+        if(searchInput.value.length){
+            location.href = searchLink + searchInput.value;
+        }
+    })</script>
+</body>
+
+</html>
